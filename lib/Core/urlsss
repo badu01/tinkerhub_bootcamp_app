@@ -1,0 +1,92 @@
+https://api.themoviedb.org/3/movie/559/videos?api_key=fc9324935a273b768eaf7ed8ca8c4444
+https://api.themoviedb.org/3/search/movie?api_key=fc9324935a273b768eaf7ed8ca8c4444&query=%27spider%27
+https://api.themoviedb.org/3/movie/top_rated?api_key=fc9324935a273b768eaf7ed8ca8c4444
+
+#dependacies
+google_fonts: ^6.2.1
+
+
+
+
+
+
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Color backgroundColor = Colors.blueAccent;  // Set your background color here
+
+  @override
+  void initState() {
+    super.initState();
+    _setStatusBarColor(backgroundColor);
+  }
+
+  void _setStatusBarColor(Color color) {
+    // Detect the brightness (light or dark)
+    final brightness = _getBrightness(color);
+
+    // Set status bar style based on the brightness
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: color, // Background color of the status bar
+        statusBarIconBrightness: brightness == Brightness.light
+            ? Brightness.dark  // Light background -> Dark icons
+            : Brightness.light, // Dark background -> Light icons
+      ),
+    );
+  }
+
+  Brightness _getBrightness(Color color) {
+    // Using a simple luminance check to decide brightness
+    double luminance = color.computeLuminance();
+    return luminance > 0.5 ? Brightness.light : Brightness.dark;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Dynamic Status Bar Color"),
+      ),
+      body: Container(
+        color: backgroundColor,
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              // Toggle background color for demonstration
+              setState(() {
+                backgroundColor =
+                    backgroundColor == Colors.blueAccent
+                        ? Colors.black
+                        : Colors.blueAccent;
+                _setStatusBarColor(backgroundColor);  // Update status bar color
+              });
+            },
+            child: Text("Toggle Background Color"),
+          ),
+        ),
+      ),
+    );
+  }
+}
