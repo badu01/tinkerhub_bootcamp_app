@@ -31,6 +31,31 @@ class BottomNavigationBarWidget extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
                 label: 'Search'
+              ),
+              BottomNavigationBarItem(
+                icon: Stack(
+                  alignment: AlignmentDirectional.topStart,
+                  children: [
+                    FaIcon(FontAwesomeIcons.bookmark),
+                    ValueListenableBuilder(
+                      valueListenable: wishListIDs,
+                      builder: (ctx,count,_){
+                        return CircleAvatar(
+                        radius: 6,
+                        backgroundColor: MyColors.purple,
+                        child: Center(
+                          child: Text(count.length.toString(),
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: MyColors.white
+                          ),),
+                        ),
+                      );
+                      },
+                    ),
+                  ],
+                ),
+                label: 'Wish List'
               )
             ],
           );

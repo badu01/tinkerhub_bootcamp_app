@@ -8,6 +8,6 @@ Future<DetailsData> getDetails(movieID)async {
     final jsonData = response.data;
     return DetailsData.fromJson(jsonData);
   } catch (e) {
-    return DetailsData(title: '', description: '',geners: [], releaseDate: '', vote: 0);
+    return DetailsData(title: '', description: '',geners: [], releaseDate: '', vote: 0,posterPath: '',id: 0);
   }
 }

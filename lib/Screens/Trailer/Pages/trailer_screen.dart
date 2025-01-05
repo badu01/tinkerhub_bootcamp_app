@@ -4,6 +4,8 @@ import 'package:tinker_bootcamp_app/APIs/trailer_service.dart';
 import 'package:tinker_bootcamp_app/Core/constants/colors.dart';
 import 'package:tinker_bootcamp_app/Core/constants/constants.dart';
 import 'package:tinker_bootcamp_app/Models/trailer_model.dart';
+import 'package:tinker_bootcamp_app/Screens/App/widget/bottom_navigation_bar.dart';
+import 'package:tinker_bootcamp_app/Screens/Trailer/widgets/book_mark_button.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TrailerScreen extends StatelessWidget {
@@ -13,6 +15,7 @@ class TrailerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBarWidget(),
       body: SafeArea(
         child: Column(
           children: [
@@ -63,31 +66,23 @@ class TrailerScreen extends StatelessWidget {
                                     fontSize: 23, color: MyColors.white),
                               ),
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: data.vote > 7.5 ? MyColors.green : data.vote > 7 ? MyColors.orange : MyColors.red,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 3,
-                                  horizontal: 10,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      data.vote.toString(),
-                                      style: TextStyle(
-                                        color: MyColors.white,
-                                      ),
-                                    ),
-                                    kWidth_5,
-                                    Icon(Icons.star,
-                                    size: 18,
-                                    color: MyColors.white,)
-                                  ],
-                                ),
-                              ),
+                            BookMarkButton(
+                              data: data,
+                              callBack: (value) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    dismissDirection: DismissDirection.down,
+                                    backgroundColor: MyColors.purple,
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: EdgeInsets.all(5),
+                                    content: Text(value,
+                                    style: TextStyle(
+                                      color: MyColors.white,
+                                    ),),
+                                  ),
+                                );
+                              },
                             )
                           ],
                         ),
