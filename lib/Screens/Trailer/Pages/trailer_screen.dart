@@ -4,7 +4,6 @@ import 'package:tinker_bootcamp_app/APIs/trailer_service.dart';
 import 'package:tinker_bootcamp_app/Core/constants/colors.dart';
 import 'package:tinker_bootcamp_app/Core/constants/constants.dart';
 import 'package:tinker_bootcamp_app/Models/trailer_model.dart';
-import 'package:tinker_bootcamp_app/Screens/App/widget/bottom_navigation_bar.dart';
 import 'package:tinker_bootcamp_app/Screens/Trailer/widgets/book_mark_button.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -15,7 +14,6 @@ class TrailerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
       body: SafeArea(
         child: Column(
           children: [

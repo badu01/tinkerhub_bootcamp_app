@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tinker_bootcamp_app/Core/constants/colors.dart';
 import 'package:tinker_bootcamp_app/Core/constants/constants.dart';
 import 'package:tinker_bootcamp_app/Models/home_model.dart';
@@ -63,49 +64,46 @@ class _HeroBannerState extends State<HeroBanner> {
                 colors: [MyColors.black, MyColors.black.withAlpha(1)]),
           ),
         ),
-        AnimatedContainer(
-          duration: Duration(seconds: 2),
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.data[index].title,
+        Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.data[index].title,
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                widget.data[index].description,
+                textAlign: TextAlign.justify,
+                // maxLines: 3,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: MyColors.white,
+                ),
+              ),
+              kHeight_5,
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>TrailerScreen(id: widget.data[index].id)));
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(MyColors.purple)
+                  ),
+                  child: Text('Watch Trailer',
                   style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                  ),
+                    color: MyColors.white
+                  ),),
                 ),
-                Text(
-                  widget.data[index].description,
-                  textAlign: TextAlign.justify,
-                  // maxLines: 3,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: MyColors.white,
-                  ),
-                ),
-                kHeight_5,
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>TrailerScreen(id: widget.data[index].id)));
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(MyColors.purple)
-                    ),
-                    child: Text('Watch Trailer',
-                    style: TextStyle(
-                      color: MyColors.white
-                    ),),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
+        ).animate().fade(),
       ],
     );
   }

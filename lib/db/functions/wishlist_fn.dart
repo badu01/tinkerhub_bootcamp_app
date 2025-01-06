@@ -2,10 +2,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tinker_bootcamp_app/db/models/wish_list_db.dart';
 
-Future<bool> addWishList(WishList item) async {
+addWishList(WishList item) async {
   final wishListBox = await Hive.openBox<WishList>('WishList');
-  await wishListBox.add(item);
-  return true;
+  await wishListBox.put(item.id, item);
 }
 
 Future<List<WishList>> getWishList() async {
@@ -15,4 +14,9 @@ Future<List<WishList>> getWishList() async {
   } catch (e) {
     return [];
   }
+}
+
+removeWishList(key) async{
+    final wishListBox = await Hive.openBox<WishList>('WishList');
+    await wishListBox.delete(key);
 }

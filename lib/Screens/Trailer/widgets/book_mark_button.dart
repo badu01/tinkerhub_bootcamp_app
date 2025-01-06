@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tinker_bootcamp_app/Core/constants/constants.dart';
@@ -31,10 +30,17 @@ class _BookMarkButtonState extends State<BookMarkButton> {
         );
         //
         //
-        await addWishList(wishList);
+        if (wishListIDs.value.contains(widget.data.id)) {
+          //
+          await removeWishList(widget.data.id);
+          //
+          wishListIDs.value.remove(widget.data.id);
+          wishListIDs.value = [...wishListIDs.value];
+        } else {
+          await addWishList(wishList);
+          wishListIDs.value = [...wishListIDs.value, widget.data.id];
+        }
         //
-        //
-        wishListIDs.value = [...wishListIDs.value, widget.data.id];
         //
         //
         wishListPref = await SharedPreferences.getInstance();
@@ -48,13 +54,14 @@ class _BookMarkButtonState extends State<BookMarkButton> {
         });
         //
         //
-        widget.data.isBookMarked!
-            ? widget.callBack('Added to book marked')
-            : widget.callBack('removed from book marked');
+        wishListIDs.value.contains(widget.data.id)
+            ? widget.callBack('Added to Wish List')
+            : widget.callBack('Removed from Wish List');
       },
       icon: Icon(Icons.bookmark_rounded),
-      color:
-          wishListIDs.value.contains(widget.data.id) ? MyColors.white : MyColors.black,
+      color: wishListIDs.value.contains(widget.data.id)
+          ? MyColors.white
+          : MyColors.black,
       style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(
               wishListIDs.value.contains(widget.data.id)
